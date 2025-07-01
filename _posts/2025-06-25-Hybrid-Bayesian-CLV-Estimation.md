@@ -145,7 +145,9 @@ $$
 
 - Sum these to get 100 estimates of CLV per user, as shown below:
 
-$ \hat{\text{CLV}}_u = \sum_{t=1}^{T_u} \exp\left( \mu_{u,t}  \right) $
+$$
+\hat{\text{CLV}}_u = \sum_{t=1}^{T_u} \exp\left( \mu_{u,t}  \right) 
+$$
 
 This gives us not just a point estimate, but a full posterior distribution of CLV, capturing uncertainty in both duration and monetary value.
 
@@ -170,20 +172,25 @@ import matplotlib.pyplot as plt
 
 idata = az.from_numpyro( mcmc )
 
-\# Sample posterior predictive churn times
+# Sample posterior predictive churn times
 lambda_post = idata.posterior["lambda_"].values.reshape(-1, n_customers)
 alpha_post = idata.posterior["alpha"].values.reshape(-1, n_customers)    # shape (samples, 1)
 
-\# Inverse CDF sampling (Monte Carlo): Weibull time-to-event
+# Inverse CDF sampling (Monte Carlo): Weibull time-to-event
 rng = np.random.default_rng(0)
 u = rng.uniform( size=lambda_post.shape )
 predicted_weeks = lambda_post * (-np.log(1 - u)) ** (1 / alpha_post)
 
 {% endhighlight %}
 
+<center>
+Code Example 1.  Illustrating the Inverse CDF sampling from each customer's Weibull distribution
+</center>
+
+
 
 <center>
-<img src="/assets/img/churn_predicted_vs_actual.png" width="250" height="250" />
+<img src="/assets/img/churn_predicted_vs_actual.png" width="350" height="350" />
 </center>
 
 
