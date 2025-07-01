@@ -229,13 +229,15 @@ the churn week of the customer:
 
 Overall, our MAPE, for the presented model is shown in the following table:
 
-<center>
+<div align="center">
+
 | Algorithm   | Prediction Type | MAPE  |
 |-------------|-----------------|-------|
 | Hybrid      | Churn           | 0.249 |
 | Hybrid      | Purchase        | 0.49   |
 | Lifetimes Gamma-Gamma  | Purchase        | 0.87  |
-</center>
+
+</div>
 
 <center>Table 1: Algorithm Performance Summary</center>
 
