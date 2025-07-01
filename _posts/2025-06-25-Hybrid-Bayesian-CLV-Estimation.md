@@ -2,13 +2,14 @@
 title: "Hybrid Bayesian CLV Estimation"
 mathjax: true
 layout: post
+author: Karl D. Gierach
 ---
 
 # Introduction
 
 Customer lifetime value (CLV) is one of the most important — and most elusive — metrics in modern marketing science. Businesses rely on it to guide decisions about acquisition spend, retention strategies, and long-term forecasting. Yet most CLV models in use today reduce customer behavior to simple point estimates, ignoring the uncertainty, heterogeneity, and behavioral nuance that actually drive retention and value.
 
-As a data scientist with a background in marketing analytics and Bayesian modeling, I’ve spent the last few months developing a hybrid probabilistic model that captures customer behavior more faithfully. The goal: to estimate CLV not as a static number, but as a distribution that reflects both the likelihood of churn and the variability of spend over time.
+As a data scientist with a background in marketing measurement and Bayesian modeling, I’ve spent the last couple of months developing a hybrid probabilistic model that captures customer behavior by leveraging additional data we know about each customer. The goal: to estimate CLV not as a static number, but as a distribution that reflects both the likelihood of churn and the variability of spend over time.
 
 This post outlines the key ideas behind the paper I submitted to an upcoming academic conference, including:
 

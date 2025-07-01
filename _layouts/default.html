@@ -30,6 +30,8 @@
 <header>
   <a href="{{ "/" | relative_url }}" class="title"> <img src="{{ site.logo_image }}" alt=" {{ site.title | escape }} " /> </a>
   {% include menu.html menu=pages %}
+  <br>
+  <i> {{ site.title }} </i>
 </header>
 
 {{ content }}
