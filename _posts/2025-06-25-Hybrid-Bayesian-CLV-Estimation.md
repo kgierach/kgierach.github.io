@@ -123,23 +123,25 @@ The following diagram shows the baked-in effects of Emails and Ads:
 
 <center>
 <img src="/assets/img/CLV_blog1_data_generaion_parameters_ground_truth.png" width="350" height="350" />
+</center>
 
-
+<center>
 Figure 2: Synthetic Data 3D View of Advertising Effectiveness
 </center>
+
 
 # Posterior Predictive Simulation
 
 After fitting the model with MCMC, we simulate:
 
-- 100 posterior churn times, $$ T_u $$, for each user
+- 100 posterior churn times, \\( T_u \\), for each user
 
-$
+$$
 T_u^{(s)} \sim \mathrm{Weibull}(\kappa_u^{(s)}, \lambda_u^{(s)}) \quad \text{for } s = 1, \dots, S
-$
+$$
 
 
-- For each churn time, simulate weekly purchases up to $ T_u $
+- For each churn time, simulate weekly purchases up to \\( T_u \\)
 
 - Sum these to get 100 estimates of CLV per user, as shown below:
 
@@ -158,7 +160,7 @@ $$
 T_u^{(s)} = \lambda_u^{(s)} \cdot \left( -\log(1 - U^{(s)}) \right)^{1 / \kappa_u^{(s)}}, \quad U^{(s)} \sim \mathrm{Uniform}(0, 1)
 $$
 
-The churn time $T_u^{(s)}$ is drawn independently per posterior sample, and purchases are simulated conditionally.
+The churn time \\( T_u^{(s)} \\) is drawn independently per posterior sample, and purchases are simulated conditionally.
 
 {% highlight python %}
 
@@ -182,8 +184,10 @@ predicted_weeks = lambda_post * (-np.log(1 - u)) ** (1 / alpha_post)
 
 <center>
 <img src="/assets/img/churn_predicted_vs_actual.png" width="250" height="250" />
+</center>
 
 
+<center>
 Figure 3: Predicted vs. Actual Churn
 </center>
 
@@ -202,7 +206,7 @@ That said we recommend a different approach here, and base each CLV
 purchase on the median of the Log-Normal distribution, as fitted for that 
 particular customer.  We can still quantify uncertainty, in a Bayesian
 fashion by using the samples drawn for each element going into the Log-Normal, 
-namely $u$, which quantifies each customer's idiosyncratic behavior, and the partial
+namely \\( u \\), which quantifies each customer's idiosyncratic behavior, and the partial
 pooled estimates for region and demographic, as well as the shared purchase
 estimate over time, which is also modeled. 
 
@@ -210,10 +214,10 @@ To generate the point estimates for each customer's purchases over time, we comp
 the mean of the Log-Normal distribution, as described previously, for each week up to 
 the churn week of the customer:
 
-- $\begin{align}
+- $$ \begin{align}
   \mu_{u,t} &= \alpha_u + \alpha_{p} + \mathbf{x}_u^\top {\beta}_t 
-    \end{align}$
-- $purchase\_amount_{u,t} = exp( \mu_{u,t} )$  
+    \end{align} $$
+- $$ purchase\_amount_{u,t} = exp( \mu_{u,t} ) $$  
 
 # Results and Future Work
 
@@ -240,8 +244,10 @@ in Figure 4, below.
 
 <center>
 <img src="/assets/img/CLV_blog1_data_generaion_parameters_estimates.png" width="300" height="300" />
+</center>
 
 
+<center>
 Figure 4: Parameter Estimates 3D View of Advertising Effectiveness
 </center>
 
@@ -250,16 +256,9 @@ For future work, we will be looking to further improve the model, by tying toget
 purchases over time, potentially modeling satiation for each user, while also by 
 partially pooling users together that share common characteristics.  
 
-I hope you found this blog post useful.  Stay tuned for more blog posts in Marketing Science... 
+I hope you found this Strata IQ blog post useful.  Stay tuned for more blog posts in Marketing Science... 
 
 Until next time!
-
-### References
-
-[^1]: [Inverse Transform Sampling — Wikipedia](https://en.wikipedia.org/wiki/Inverse_transform_sampling)
-
-[^2]: E. Baltislam, et. al. "Empirical validation and comparison of models for customer base analysis", 
-International Journal of Research in Marketing (2007) 201-209
 
 ### Source Code
 
@@ -271,3 +270,14 @@ here on <a href="https://www.github.com/kgierach/Strata-IQ-Blog/tree/main/Bayesi
 <i>
 A version of this work has been submitted for peer review at a scientific conference. This blog post is intended to present the ideas to a broader audience in an informal and educational format. All views and interpretations expressed here are personal and do not imply acceptance or endorsement by any academic venue.
 </i>
+
+<i>
+This post is sponsored by Strata IQ.  At Strata IQ, we use Marketing Science; essentially Data Science / Machine Learning / and AI to 
+help provide insights to solve business problems in marketing.
+</i>
+
+### References
+
+[^1]: [Inverse Transform Sampling — Wikipedia](https://en.wikipedia.org/wiki/Inverse_transform_sampling)
+
+[^2]: [E. Baltislam, et. al. "Empirical validation and comparison of models for customer base analysis",  International Journal of Research in Marketing (2007) 201-209](https://www.sciencedirect.com/science/article/abs/pii/S0167811607000171)
