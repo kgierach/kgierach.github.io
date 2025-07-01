@@ -62,20 +62,19 @@ Together, these form a generative model of customer behavior that simulates:
 
 1. Churn Model (Weibull)
 
-Let \( T_u \) represent the latent time of churn for user \( u \), and let \( λ_u \) and \( κ \) be the scale and shape parameters of the Weibull distribution. The scale is modeled as a log-linear function of user co-variates \( x_u \):
+Let \\( T_u \\) represent the latent time of churn for user \\( u \\), and let \\( λ_u \\) and \\( κ \\) be the scale and shape parameters of the Weibull distribution. The scale is modeled as a log-linear function of user co-variates \\( x_u \\):
 
 $$ \begin{align}
 \lambda_u &= \exp\left(\alpha_c + \mathbf{x}_u^\top {\beta}_c \right) \\
 T_u &\sim \text{Weibull}(\kappa, \lambda_u)
 \end{align} $$
 
-This model captures early and late churn behavior flexibly, depending on $$κ$$, and generalizes across users via partial pooling on $$β_c$$,
- where $$x_u$$ are user co-variates and $β_c$ is the vector of corresponding coefficients.
-
+This model captures early and late churn behavior flexibly, depending on \\( κ \\), and generalizes across users via partial pooling on \\( β_c \\),
+ where \\( x_u \\) are user co-variates and \\( β_c \\) is the vector of corresponding coefficients.
 
 2. Purchase Model (Hierarchical Log-Normal)
 
-Let $y_{u,t}$ be the purchase amount for user $u$ at week $t$. The purchase is modeled only for $t < T_u$. The log of purchase amount is modeled with both global and user-level effects:
+Let \\( y_{u,t} \\) be the purchase amount for user \\( u \\) at week \\( t \\). The purchase is modeled only for \\( t < T_u \\). The log of purchase amount is modeled with both global and user-level effects:
 
 $$ \begin{align}
 \mu_{u,t} &= \alpha_u + \alpha_{p} + \mathbf{x}_u^\top {\beta}_t \\
@@ -91,9 +90,9 @@ Here:
     captures per-user deviation in spending
 - $$\alpha_p \sim \mathcal{N}(0, \sigma_{\alpha_p}^2) $$
     serves to capture the global spend intercept
-- Covariates (e.g., demographics, region) explain systematic differences in spend behavior
-- $$\beta_t$$ is a shared effect coefficient vector for each week in the analysis, and at this time
-    each coefficient is modeled independently and drawn from $$N(0, \sigma_\beta )$$
+- Co-variates (e.g., demographics, region) explain systematic differences in spend behavior
+- \\( \beta_t \\) is a shared effect coefficient vector for each week in the analysis, and at this time
+    each coefficient is modeled independently and drawn from \\( N(0, \sigma_\beta ) \\)
 
 In Figure 1 we can observe a plate diagram that further illustrates the 
 combined model structure.  This final, far right shaded circle represents an accumulation 
@@ -104,12 +103,12 @@ has their own distribution that characterizes their unique behavior.
 
 <center>
 <img src="/assets/img/hybrid_clv_graphviz_labeled.png" width="550" height="180" />
-
-
-Figure 1: Hybrid Model Architecture Diagram
 </center>
 
 
+<center>
+Figure 1: Hybrid Model Architecture Diagram
+</center>
 
 # Test Data
 
