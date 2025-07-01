@@ -1,8 +1,8 @@
 ---
 title: "Hybrid Bayesian CLV Estimation"
+author: "Karl D. Gierach"
 mathjax: true
 layout: post
-author: Karl D. Gierach
 ---
 
 # Introduction
