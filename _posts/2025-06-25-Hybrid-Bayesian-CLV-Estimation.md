@@ -62,38 +62,38 @@ Together, these form a generative model of customer behavior that simulates:
 
 1. Churn Model (Weibull)
 
-Let $ T_u $ represent the latent time of churn for user $u$, and let $λ_u$ and $κ$ be the scale and shape parameters of the Weibull distribution. The scale is modeled as a log-linear function of user covariates $x_u$:
+Let $T_u$ represent the latent time of churn for user $u$, and let $λ_u$ and $κ$ be the scale and shape parameters of the Weibull distribution. The scale is modeled as a log-linear function of user covariates $x_u$:
 
-$ \begin{align}
+$$ \begin{align}
 \lambda_u &= \exp\left(\alpha_c + \mathbf{x}_u^\top {\beta}_c \right) \\
 T_u &\sim \text{Weibull}(\kappa, \lambda_u)
-\end{align} $
+\end{align} $$
 
-This model captures early and late churn behavior flexibly, depending on $κ$, and generalizes across users via partial pooling on $β_c$,
- where $x_u$ are user co-variates and $β_c$ is the vector of corresponding coefficients.
+This model captures early and late churn behavior flexibly, depending on $$κ$$, and generalizes across users via partial pooling on $$β_c$$,
+ where $$x_u$$ are user co-variates and $β_c$ is the vector of corresponding coefficients.
 
 
 2. Purchase Model (Hierarchical Log-Normal)
 
 Let $y_{u,t}$ be the purchase amount for user $u$ at week $t$. The purchase is modeled only for $t < T_u$. The log of purchase amount is modeled with both global and user-level effects:
 
-$ \begin{align}
+$$ \begin{align}
 \mu_{u,t} &= \alpha_u + \alpha_{p} + \mathbf{x}_u^\top {\beta}_t \\
 y_{u,t} &\sim \text{LogNormal}(\mu_{u,t}, \sigma_p^2) \quad \text{for } t < T_u \\
 \end{align}
-$
+$$
 
 Here:
 
-- $\begin{align} 
+- $$\begin{align} 
     \alpha_{u} \sim \mathcal{N}(0, \sigma_{\alpha_u}^2) 
-    \end{align}$ 
+    \end{align}$$ 
     captures per-user deviation in spending
-- $\alpha_p \sim \mathcal{N}(0, \sigma_{\alpha_p}^2) $
+- $$\alpha_p \sim \mathcal{N}(0, \sigma_{\alpha_p}^2) $$
     serves to capture the global spend intercept
 - Covariates (e.g., demographics, region) explain systematic differences in spend behavior
-- $\beta_t$ is a shared effect coefficient vector for each week in the analysis, and at this time
-    each coefficient is modeled independently and drawn from $N(0, \sigma_\beta )$
+- $$\beta_t$$ is a shared effect coefficient vector for each week in the analysis, and at this time
+    each coefficient is modeled independently and drawn from $$N(0, \sigma_\beta )$$
 
 In Figure 1 we can observe a plate diagram that further illustrates the 
 combined model structure.  This final, far right shaded circle represents an accumulation 
@@ -105,6 +105,7 @@ has their own distribution that characterizes their unique behavior.
 <center>
 <img src="/assets/img/hybrid_clv_graphviz_labeled.png" width="550" height="180" />
 
+
 Figure 1: Hybrid Model Architecture Diagram
 </center>
 
@@ -115,12 +116,15 @@ Figure 1: Hybrid Model Architecture Diagram
 The data used in this blog post is stochastically generated data, with baked in ground truth. 
 Just as a quick reminder, each customer's purchase patterns were simulated based on fixed effects,
 while the churn propensity was simulated based on the same fixed effects, but also
-the quantity of advertising exposure which that person received.
+the quantity of advertising exposure which that person received. Typically in real life, one would need to
+infer the churn time from a lack of activity as noted in [^2], in the absence of a
+deliberate unsubscribe event by the customer.
 
 The following diagram shows the baked-in effects of Emails and Ads:
 
 <center>
 <img src="/assets/img/CLV_blog1_data_generaion_parameters_ground_truth.png" width="350" height="350" />
+
 
 Figure 2: Synthetic Data 3D View of Advertising Effectiveness
 </center>
@@ -129,7 +133,7 @@ Figure 2: Synthetic Data 3D View of Advertising Effectiveness
 
 After fitting the model with MCMC, we simulate:
 
-- 100 posterior churn times, $ T_u $, for each user
+- 100 posterior churn times, $$ T_u $$, for each user
 
 $
 T_u^{(s)} \sim \mathrm{Weibull}(\kappa_u^{(s)}, \lambda_u^{(s)}) \quad \text{for } s = 1, \dots, S
@@ -179,6 +183,7 @@ predicted_weeks = lambda_post * (-np.log(1 - u)) ** (1 / alpha_post)
 
 <center>
 <img src="/assets/img/churn_predicted_vs_actual.png" width="250" height="250" />
+
 
 Figure 3: Predicted vs. Actual Churn
 </center>
@@ -236,6 +241,7 @@ in Figure 4, below.
 
 <center>
 <img src="/assets/img/CLV_blog1_data_generaion_parameters_estimates.png" width="300" height="300" />
+
 
 Figure 4: Parameter Estimates 3D View of Advertising Effectiveness
 </center>
