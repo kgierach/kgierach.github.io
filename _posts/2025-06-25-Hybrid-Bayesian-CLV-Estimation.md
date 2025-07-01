@@ -62,7 +62,7 @@ Together, these form a generative model of customer behavior that simulates:
 
 1. Churn Model (Weibull)
 
-Let $T_u$ represent the latent time of churn for user $u$, and let $λ_u$ and $κ$ be the scale and shape parameters of the Weibull distribution. The scale is modeled as a log-linear function of user covariates $x_u$:
+Let \( T_u \) represent the latent time of churn for user \( u \), and let \( λ_u \) and \( κ \) be the scale and shape parameters of the Weibull distribution. The scale is modeled as a log-linear function of user co-variates \( x_u \):
 
 $$ \begin{align}
 \lambda_u &= \exp\left(\alpha_c + \mathbf{x}_u^\top {\beta}_c \right) \\
