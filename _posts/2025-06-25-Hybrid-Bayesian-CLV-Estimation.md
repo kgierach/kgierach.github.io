@@ -85,11 +85,9 @@ $$
 
 Here:
 
-- $$\begin{align} 
-    \alpha_{u} \sim \mathcal{N}(0, \sigma_{\alpha_u}^2) 
-    \end{align}$$ 
+- $$ \alpha_{u} \sim \mathcal{N}(0, \sigma_{\alpha_u}^2) $$
     captures per-user deviation in spending
-- $$\alpha_p \sim \mathcal{N}(0, \sigma_{\alpha_p}^2) $$
+- $$ \alpha_p \sim \mathcal{N}(0, \sigma_{\alpha_p}^2) $$
     serves to capture the global spend intercept
 - Co-variates (e.g., demographics, region) explain systematic differences in spend behavior
 - \\( \beta_t \\) is a shared effect coefficient vector for each week in the analysis, and at this time
@@ -231,11 +229,13 @@ the churn week of the customer:
 
 Overall, our MAPE, for the presented model is shown in the following table:
 
+<center>
 | Algorithm   | Prediction Type | MAPE  |
 |-------------|-----------------|-------|
 | Hybrid      | Churn           | 0.249 |
 | Hybrid      | Purchase        | 0.49   |
 | Lifetimes Gamma-Gamma  | Purchase        | 0.87  |
+</center>
 
 <center>Table 1: Algorithm Performance Summary</center>
 
